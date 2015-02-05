@@ -136,7 +136,7 @@ class Document_Revisions extends HTTP_WebDAV_Server {
 		$webdav_methods = array( "LOCK", "PUT" );
 		$private_checked_methods = array( "GET", "HEAD" );
 
-		if ( in_array( $request_method, $webdav_methods ) || ( in_array( $request_method, $private_checked_methods ) && $this->is_webdav_client() ) ) {
+		if ( in_array( $request_method, $webdav_methods ) && apply_filters( 'document_revisions_enable_webdav', true ) || ( in_array( $request_method, $private_checked_methods ) && $this->is_webdav_client() && apply_filters( 'document_revisions_enable_webdav', true ) ) ) {
 			$this->basic_auth();
 		}
 	}
